@@ -5,13 +5,11 @@ cask "skulk" do
   on_macos do
     on_intel do
       sha256 "570b43f3d5f4be0c40099840d70a43c6781b2fcfefc706990470132f3b87ba67"
-      url "https://github.com/roeeyn/skulk/releases/download/v#{version}/skulk_#{version}_darwin_amd64.tar.gz",
-        verified: "github.com/roeeyn/skulk"
+      url "https://github.com/roeeyn/skulk/releases/download/v#{version}/skulk_#{version}_darwin_amd64.tar.gz"
     end
     on_arm do
       sha256 "ce27d9208dcc5db84832c65e1f561fc611365034e30cb69b9c910ebbe6d136d4"
-      url "https://github.com/roeeyn/skulk/releases/download/v#{version}/skulk_#{version}_darwin_arm64.tar.gz",
-        verified: "github.com/roeeyn/skulk"
+      url "https://github.com/roeeyn/skulk/releases/download/v#{version}/skulk_#{version}_darwin_arm64.tar.gz"
     end
   end
 
@@ -25,9 +23,9 @@ cask "skulk" do
 
   binary "skulk"
 
-  postflight do
-    if OS.mac?
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/skulk"]
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/skulk"]
     end
   end
 
